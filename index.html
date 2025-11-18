@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartConta — Proyecto de Innovación Profesional</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js (se mantiene por si deseas gráficos) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* -------------------------
+       RESET & BASE
+       ------------------------- */
+    :root{
+      --bg: #0b0e16;
+      --card: #111827;
+      --muted: #cbd5e1;
+      --accent1: #4fd1c5;
+      --accent2: #7c3aed;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 15px;
+      --font: 'Poppins', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: #f1f5f9;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+.section-show {
+  opacity: 1 !important;
+  transform: translate(0,0) !important;
+}
+/* Animaciones base de entrada */
+.section-anim,
+.section-left,
+.section-right {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease;
+}
+
+/* Izquierda */
+.section-left {
+  transform: translateX(-40px);
+}
+
+/* Derecha */
+.section-right {
+  transform: translateX(40px);
+}
+
+/* Cuando aparece en pantalla */
+.section-show {
+  opacity: 1 !important;
+  transform: translate(0,0) !important;
+}
+
+/* BOTÓN PRO DEBAJO Y CENTRADO */
+.btn-pro {
+  margin-top: 18px;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 14px 34px;
+  border-radius: 32px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(90deg, #7c3aed, #4fd1c5);
+  box-shadow: 0 0 22px rgba(124,58,237,0.55);
+  transition: all 0.28s ease;
+}
+
+
+/* -------------------------
+   LOGOS INSTITUCIONALES
+------------------------- */
+.institucional-logos {
+  background: #00;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.logos-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logos-container img {
+  max-height: 100px; /* tamaño uniforme de los logos */
+  object-fit: contain;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logos-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+}
+
+    /* -------------------------
+       PARTICLES (container)
+       ------------------------- */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* -------------------------
+       HEADER / HERO
+       ------------------------- */
+    header.hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1625246333195-76f8f6d09392?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    }
+
+    header.hero h1,
+    header.hero h3,
+    header.hero p {
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.4s ease forwards;
+    }
+
+    header.hero h1 {
+      font-size: 3.6rem;
+      margin: 0;
+      animation-delay: 0.15s;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent1));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 300%;
+      animation: gradientMove 6s linear infinite, fadeUp 1.4s ease forwards 0.15s;
+      display: inline-block;
+      letter-spacing: -0.02em;
+    }
+
+    header.hero h3 {
+      color: var(--accent1);
+      font-weight: 600;
+      font-size: 1.6rem;
+      margin-top: 12px;
+      animation-delay: 0.6s;
+    }
+
+    header.hero p {
+      color: #e0e7ff;
+      max-width: 800px;
+      margin-top: 12px;
+      font-size: 1.05rem;
+      animation-delay: 1.0s;
+    }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Botón de la portada - Ver Proyecto */
+    .btn-proyecto {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 12px 28px;
+      border-radius: 28px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: #071023;
+      transition: transform 0.26s ease, box-shadow 0.26s ease;
+      z-index: 2;
+      border: none;
+    }
+    .btn-proyecto:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(124,58,237,0.12); }
+
+/* BOTONES NUEVOS DE LA PORTADA */
+.hero-buttons {
+  margin-top: 35px;
+  display: flex;
+  flex-wrap: wrap; /* 🔥 permite que el botón PRO baje */
+  gap: 20px;
+  justify-content: center; /* 🔥 lo centra */
+  z-index: 2;
+
+
+}
+
+.btn-hero {
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(90deg,#4fd1c5,#7c3aed);
+  box-shadow: 0 0 18px rgba(124,58,237,0.35);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-hero i {
+  font-size: 1.2rem;
+}
+
+.btn-hero:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px rgba(124,58,237,0.55);
+}
+
+
+
+}
+
+.btn-pro:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 32px rgba(124,58,237,0.75);
+}
+
+    /* -------------------------
+       LAYOUT (container)
+       ------------------------- */
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 60px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-content { flex: 3; min-width: 320px; }
+    .sidebar { flex: 1; min-width: 260px; background: var(--card); padding: 28px; border-radius: var(--radius); box-shadow: 0 6px 28px rgba(0,0,0,0.45); position: sticky; top: 20px; height: fit-content; }
+    .sidebar h3 { color: var(--accent1); margin-bottom: 18px; text-align: center; }
+    .sidebar p, .sidebar li { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+    /* -------------------------
+       SECTION (cards)
+       ------------------------- */
+    section {
+      background-color: var(--card);
+      margin-top: 30px;
+      padding: 34px;
+      border-radius: 18px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.55);
+    }
+    section h2 {
+      border-left: 6px solid var(--accent1);
+      padding-left: 12px;
+      color: #fff;
+      font-size: 1.6rem;
+      margin: 0 0 12px 0;
+    }
+/* ================================
+   EFECTOS PREMIUM PARA SECCIONES
+================================ */
+
+/* Aparición vertical */
+.section-anim {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease;
+  will-change: opacity, transform;
+}
+
+/* Izquierda */
+.section-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all 0.9s ease;
+  will-change: opacity, transform;
+}
+
+/* Derecha */
+.section-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.9s ease;
+  will-change: opacity, transform;
+}
+
+/* Activación */
+.section-show {
+  opacity: 1 !important;
+  transform: translate(0,0) !important;
+}
+
+/* Bordes neon suaves */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, #4fd1c5, #7c3aed);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.25;
+}
+
+/* ETIQUETA DE VERSIÓN EN LA PORTADA */
+.version-tag {
+  font-size: 1.1rem;
+  margin-left: 10px;
+  padding: 4px 10px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: #0f172a;
+  border-radius: 12px;
+  font-weight: 700;
+  display: inline-block;
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.45);
+}
+
+    /* -------------------------
+       ROADMAP (mejorado visual)
+       ------------------------- */
+    .roadmap { position: relative; margin-top: 26px; padding-left: 40px; border-left: 3px solid var(--accent1); }
+    .road-step {
+      position: relative;
+      background: #1e293b;
+      border-radius: 14px;
+      margin: 28px 0;
+      padding: 20px 26px;
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.7s ease;
+    }
+    .road-step.visible { opacity: 1; transform: translateX(0); }
+    .road-step::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 28px;
+      width: 16px;
+      height: 16px;
+      background: var(--accent1);
+      border: 3px solid var(--accent2);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(79,209,197,0.08);
+    }
+    .road-step i { font-size: 1.5rem; color: var(--accent1); margin-right: 10px; vertical-align: middle; display:inline-block; animation: pulse 2.4s infinite; }
+    .road-step strong { color: var(--accent2); }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.95; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+/* -------------------------
+   WIDGET: DESCRIPCIÓN DE SMARTCONTA
+------------------------- */
+.smart-widget {
+  background: linear-gradient(135deg, #111827, #0f172a);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  margin-top: 40px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+}
+
+.smart-widget::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+}
+
+.smart-widget-content {
+  position: relative;
+  z-index: 10;
+}
+
+.smart-widget i {
+  font-size: 3.2rem;
+  color: var(--accent1);
+  margin-bottom: 15px;
+  animation: pulseIcon 2s infinite;
+}
+
+.smart-widget h2 {
+  font-size: 1.9rem;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.smart-widget p {
+  font-size: 1.1rem;
+  max-width: 820px;
+  margin: auto;
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: .8; }
+}
+/* -------------------------
+   WIDGET: PARA QUÉ SIRVE SMARTCONTA
+------------------------- */
+.smart-purpose {
+  margin-top: 35px;
+}
+
+.purpose-box {
+  background: #111827;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+  position: relative;
+  text-align: center;
+}
+
+.purpose-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.28;
+}
+
+.purpose-box i {
+  font-size: 3rem;
+  color: var(--accent1);
+  margin-bottom: 14px;
+  animation: radialPulse 2.3s infinite;
+}
+
+.purpose-box h2 {
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.purpose-box p {
+  color: #cbd5e1;
+  max-width: 850px;
+  margin: auto;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+@keyframes radialPulse {
+  0%, 100% { transform: scale(1); opacity: .9; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+
+/* ============================
+   NAVBAR SUPERIOR FIJO (IZQUIERDA)
+============================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+}
+
+.nav-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: flex-start; /* 🔥 TODO A LA IZQUIERDA */
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #4fd1c5, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 🔥 SUBTEMAS A LA IZQUIERDA */
+.nav-links {
+  display: flex;
+  justify-content: flex-start; /* 🔥 Alineados a la izquierda */
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #e2e8f0;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+.nav-links li a:hover {
+  color: #4fd1c5;
+  text-shadow: 0 0 10px #4fd1c5;
+}
+
+/* ICONO HAMBURGUESA */
+.menu-icon {
+  display: none;
+  font-size: 1.6rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 820px) {
+
+  .nav-container {
+    justify-content: space-between; /* Logo izq - hamburguesa der */
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 820px) {
+
+  .nav-container {
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+/* ============================
+   RESPONSIVE NAV
+============================ */
+@media (max-width: 82px) {
+
+  .nav-container {
+    justify-content: space-between; /* 🔥 Logo izquierda, menú derecha */
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 5px 0;
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+/* ============================
+   RESPONSIVE NAV
+============================ */
+@media (max-width: 820px) {
+
+  .nav-links {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+    /* -------------------------
+       TABLES / OTHER ELEMENTS
+       ------------------------- */
+    table { width: 100%; border-collapse: collapse; color: #e2e8f0; }
+    table th, table td { padding: 10px; border-bottom: 1px solid rgba(79,209,197,0.08); text-align: left; }
+
+    /* -------------------------
+       FOOTER
+       ------------------------- */
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: #94a3b8;
+      padding: 32px;
+      border-top: 1px solid #1e293b;
+      background: #0f172a;
+    }
+
+    /* -------------------------
+       RESPONSIVE
+       ------------------------- */
+    @media (max-width: 1000px) {
+      header.hero h1 { font-size: 2.8rem; }
+      .container { padding: 40px 20px; }
+    }
+
+    @media (max-width: 680px) {
+      header.hero { height: auto; padding: 48px 18px; }
+      header.hero h1 { font-size: 2.2rem; }
+      .container { padding: 28px 16px; flex-direction: column; }
+      .sidebar { position: relative; top: 0; }
+    }
+  </style>
+</head>
+<body>
+<!-- NAVBAR SUPERIOR -->
+<nav class="navbar">
+  <div class="nav-container">
+
+    <div class="nav-logo">SmartConta</div>
+
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+
+    <ul class="nav-links">
+      <li><a href="#top">Inicio</a></li>
+      <li><a href="#smartconta-info">¿Qué es?</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#beneficios">Beneficios</a></li>
+      <li><a href="#anexos">Anexos</a></li>
+    </ul>
+
+  </div>
+</nav>
+
+  <!-- Partículas (fondo) -->
+  <div id="particles-js"></div>
+
+  <!-- HERO / PORTADA -->
+  <header class="hero" role="banner" aria-label="Portada SmartConta">
+  <div id="particles-js"></div>
+
+<div class="title-wrapper">
+  <h1 class="logo-title">SmartConta</h1>
+  <span class="version-tag">v1.0</span>
+</div>
+
+
+</h1>
+
+
+
+  <h3>“Donde la tecnología se encuentra con la contabilidad”</h3>
+  <p>Innovación, educación y transformación digital para el aprendizaje contable.</p>
+
+  <div class="hero-buttons">
+
+
+ <!-- Botón 1 -->
+<a href="https://samrtconta1-l4lk.vercel.app/" class="btn-hero" target="_blank" rel="noopener noreferrer">
+  <i class="fa-solid fa-globe"></i> Version web
+</a>
+
+<!-- Botón 2 -->
+<a href="https://www.mediafire.com/file/lbxlok8opi3zalq/Smartconta.apk/file" class="btn-hero" target="_blank" rel="noopener noreferrer">
+  <i class="fa-brands fa-android"></i> Version Android
+</a>
+
+
+</div>
+
+
+<!-- 🔥 BOTÓN PRO ABAJO Y CENTRADO PERO CERCA -->
+<a class="btn-pro" href="https://smartconta-pro.vercel.app/">
+  <i class="fa-solid fa-crown"></i> SmartConta Pro
+</a>
+
+</header>
+
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+
+<!-- SMARTCONTA INFO -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-brain"></i>
+  <h2>SMARTCONTA – Simulador de IGV, Renta y Rentabilidad</h2>
+  <p>
+    SmartConta es una herramienta educativa desarrollada para calcular los impuestos mensuales y la rentabilidad de un negocio
+    a partir de sus ventas, compras y gastos. Su propósito es apoyar el aprendizaje contable mediante el uso de tecnología aplicada.
+  </p>
+</section>
+
+<!-- ¿Qué es SmartConta? -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-circle-question"></i>
+  <h2>¿Qué es SmartConta?</h2>
+  <p>
+    SmartConta automatiza el cálculo del IGV a pagar y del Impuesto a la Renta, mostrando también la utilidad o pérdida mensual y anual del negocio.
+  </p>
+  <p>
+    Con esta herramienta, el usuario puede registrar operaciones, visualizar resultados y respaldar información fácilmente. Aunque el sistema no explica directamente el proceso comercial contable, está vinculado a él, ya que los cálculos realizados se originan en las operaciones registradas dentro de dicho proceso.
+  </p>
+</section>
+
+<!-- ¿Qué calcula? -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-calculator"></i> 
+ <h2>¿Qué calcula?</h2>
+  <ul style="list-style:none;padding-left:0;margin:0;">
+    <li>• IGV a pagar = IGV débito (ventas) – IGV crédito (compras).</li>
+    <li>• Impuesto a la Renta mensual según porcentaje configurado (ej. RER 1.5%).</li>
+    <li>• Rentabilidad mensual y anual considerando los gastos del negocio.</li>
+    <li>• Resultados mostrados en tablas y gráficos para análisis comparativo.</li>
+  </ul>
+</section>
+
+<!-- ¿Cómo funciona? -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-gears"></i> 
+  <h2>¿Cómo funciona?</h2>
+  <ol style="padding-left:20px;margin:0;">
+    <li>Registra tus ventas y compras (con IGV). El sistema separa automáticamente la base imponible e IGV.</li>
+    <li>Ajusta el porcentaje del Impuesto a la Renta según el régimen correspondiente.</li>
+    <li>Agrega los gastos mensuales (planilla, alquiler, servicios, etc.).</li>
+    <li>Obtén los resultados automáticos: IGV a pagar, IR del mes y utilidad mensual.</li>
+    <li>Guarda los resultados mensuales, observa el gráfico anual y respalda tus datos mediante exportación JSON.</li>
+  </ol>
+</section>
+
+<!-- Roadmap -->
+<section id="roadmap" class="section-left">
+  <h2>Roadmap del Proyecto</h2>
+  <div class="roadmap" aria-hidden="false">
+    <div class="road-step"><i class="fa-solid fa-lightbulb"></i><strong> Fase 1:</strong> Se definieron los objetivos, estructura y funciones del sistema.</div>
+    <div class="road-step"><i class="fa-solid fa-pen-nib"></i><strong> Fase 2:</strong> Se aplicaron encuestas y mejoras.</div>
+    <div class="road-step"><i class="fa-solid fa-code"></i><strong> Fase 3:</strong> Programación del sistema y gráficos.</div>
+    <div class="road-step"><i class="fa-solid fa-vial"></i><strong> Fase 4:</strong> Video, pruebas y mejoras finales.</div>
+    <div class="road-step"><i class="fa-solid fa-rocket"></i><strong> Fase 5:</strong> Implementación y difusión institucional.</div>
+  </div>
+</section>
+
+<!-- Beneficios -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-arrow-trend-up"></i>
+  <h2>Beneficios del sistema</h2>
+  <ul style="list-style:none;padding-left:0;margin:0;">
+    <li>✔ Facilita el aprendizaje práctico del cálculo tributario y financiero.</li>
+    <li>✔ Calcula impuestos con rapidez y precisión.</li>
+    <li>✔ Permite visualizar el comportamiento del negocio.</li>
+    <li>✔ Ayuda en la toma de decisiones.</li>
+    <li>✔ Funciona offline y almacena datos en el navegador.</li>
+  </ul>
+</section>
+
+<!-- Innovación -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-flask"></i> 
+ <h2>Innovación y finalidad del proyecto</h2>
+  <p>
+    SmartConta combina tecnología con contabilidad aplicada. Automatiza cálculos y el video refuerza la comprensión del proceso contable real.
+  </p>
+</section>
+
+<!-- Impacto -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-up-right-and-down-left-from-center"></i> 
+  <h2>Impacto Esperado</h2>
+  <p>SmartConta genera beneficios sociales, educativos y económicos.</p>
+  <ul style="margin:0;">
+    <li>• Fortalece educación contable.</li>
+    <li>• Mejora decisiones financieras.</li>
+    <li>• Reduce uso de papel.</li>
+  </ul>
+</section>
+
+<!-- Conclusiones -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-folder-tree"></i>
+  <h2>Conclusions y recomendaciones</h2>
+  <p>Se recomienda continuar mejorando visuales, lanzar versión móvil y actualizar reglas tributarias.</p>
+</section>
+
+<!-- Anexos -->
+<section class="section-anim smart-widget">
+  <div class="smart-widget-content">
+    <i class="fa-solid fa-flask"></i>
+  <h2>Anexos</h2>
+  <p>Incluye encuestas, tablas, capturas del sistema, guion del video y materiales gráficos utilizados.</p>
+</section>
+
+     
+
+    </div> <!-- /main-content -->
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Datos importantes">
+      <h3>Datos Importantes</h3>
+      <ul style="padding-left:0;">
+        <li><strong>Inicio del proyecto:</strong> Septiembre 2025</li>
+        <li><strong>Equipo:</strong> II Semestre "Contabilidad" </li>
+        <li><strong>Duración:</strong> 2 meses</li>
+        <li><strong>Fecha de presentación:</strong> Noviembre 2025</li>
+        <li><strong>Metodología aplicada:</strong> Stage-Gate</li>
+        <li><strong>Tecnologías:</strong> HTML, CSS, JavaScript, Chart.js</li>
+        <li><strong>Institución:</strong> IESTP Castilla</li>
+        <li><strong>Supervisor:</strong> Luis Fernando Flores</li>
+      </ul>
+
+      <p style="margin-top:15px;font-style:italic;color:var(--accent1);">
+        SmartConta busca revolucionar la enseñanza contable con una experiencia digital moderna y accesible.
+      </p>
+
+      <div style="text-align:center;margin-top:18px;">
+        <a href="https://tuenlace.com" target="_blank" rel="noopener noreferrer" class="btn-proyecto" style="padding:10px 18px;font-size:0.95rem;">
+          <i class="fa-solid fa-arrow-right"></i>&nbsp; Ver Proyecto
+        </a>
+      </div>
+    </aside>
+
+  </div> <!-- /container -->
+<!-- LOGOS INSTITUCIONALES CENTRADOS -->
+<div class="institucional-logos">
+  <div class="logos-container">
+    <a href="" target="_blank" rel="noopener">
+      <img src="logo-sunat.png" alt="SUNAT Logo">
+    </a>
+  
+      <img src="gob.pe.jpg" ">
+     <img src="360_F_321243084_GstfWflk1eTLlzUdRZ5mjoP5IG1iCc8J-removebg-preview.png" ">
+    
+      <img src="108 Produce.jpg" alt="">
+    </a>
+  </div>
+</div>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <h3>Proyecto Académico: SmartConta</h3>
+    <p>“Donde la tecnología se encuentra con la contabilidad.”</p>
+    <p>© 2025 IESTP Castilla — Todos los derechos reservados</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<script>
+/* -------------------------
+   PARTICLES.JS
+------------------------- */
+particlesJS('particles-js', {
+  particles: {
+    number: { value: 70 },
+    color: { value: ["#4fd1c5", "#7c3aed"] },
+    opacity: { value: 0.55 },
+    size: { value: 3 },
+    line_linked: {
+      enable: true,
+      distance: 150,
+      color: "#4fd1c5",
+      opacity: 0.18,
+      width: 1
+    },
+    move: { enable: true, speed: 1.8 }
+  },
+  interactivity: {
+    events: { onhover: { enable: true, mode: "repulse" } },
+    modes: { repulse: { distance: 100 } }
+  }
+});
+
+/* -------------------------
+   ROADMAP SCROLL REVEAL
+------------------------- */
+const roadmapObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.18 });
+
+document.querySelectorAll('.road-step')
+  .forEach(step => roadmapObserver.observe(step));
+
+
+/* -------------------------
+   ANIMACIÓN GENERAL DE SECCIONES
+------------------------- */
+const sections = document.querySelectorAll(
+  ".section-anim, .section-left, .section-right"
+);
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("section-show");
+  });
+}, { threshold: 0.2 });
+
+sections.forEach(sec => sectionObserver.observe(sec));
+
+</script>
+
+
+     </script>
+</body>
+</html>
